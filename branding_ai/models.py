@@ -1,5 +1,6 @@
 from django.db import models
-
+import datetime
+from django.utils import timezone
 # Create your models here.
 
 class BrandingCategories(models.Model):
@@ -10,4 +11,8 @@ class BrandingCategories(models.Model):
     
     def __str__(self):
         return self.category
+    
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.created_at <= now
     
