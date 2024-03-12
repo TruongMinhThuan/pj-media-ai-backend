@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework_swagger.views import get_swagger_view
+
+
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('branding_ai/', include('branding_ai.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('sd-api/', include('stable_diffusion.urls'))
 ]
