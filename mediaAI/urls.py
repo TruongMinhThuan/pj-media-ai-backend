@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework_swagger.views import get_swagger_view
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
@@ -26,4 +28,4 @@ urlpatterns = [
     path('branding_ai/', include('branding_ai.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('sd-api/', include('stable_diffusion.urls'))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

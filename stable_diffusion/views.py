@@ -19,7 +19,7 @@ def generate_txt2img(request):
         sd_request.schema.steps = 5
         sd_request.schema.prompt = "A cat 111"
 
-        res = sd_request.txt2simg()
+        res = sd_request.txt2img()
         # print(res['images'])
         # res.images = [f"data:image/png;base64,{img}" for img in res.images]
 
