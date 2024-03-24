@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'rest_framework_swagger',
-    'drf_spectacular'
+    'drf_spectacular',
+    'drf_yasg',
+    'media_service_api'
+
 ]
 
 MIDDLEWARE = [
@@ -166,7 +169,7 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "simple",
         },
-       
+
     },
     "loggers": {
         "django": {
