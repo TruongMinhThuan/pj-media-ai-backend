@@ -8,7 +8,7 @@ from datetime import datetime
 
 class YoloMediaService(BaseService):
 
-    def __init__(self, model='yolov8n-seg.pt') -> None:
+    def __init__(self, model='models/yolov8n-seg.pt') -> None:
         super().__init__()
         self.model = YOLO(model)
 

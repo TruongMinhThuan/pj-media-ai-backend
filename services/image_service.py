@@ -13,7 +13,7 @@ class ImageServices(BaseService):
 
     def __init__(self) -> None:
         super().__init__()
-        self.upload_folder_default = self.settings.MEDIA_ROOT + '/uploads_images'
+        self.upload_folder_default = self.settings.MEDIA_ROOT
 
     def flip_image(self, image):
         return Image.open(image).transpose(Image.FLIP_LEFT_RIGHT)
@@ -91,13 +91,22 @@ class ImageServices(BaseService):
 
     def remove_image_background(self, image_path: str | None = None):
 
-        if image_path:
-            with open(image_path, 'rb') as i:
-                with open(image_path.replace(".jpg", ".out.jpg"), 'wb') as o:
-                    input = i.read()
-                    output = remove_img_background(input)
-                    o.write(output)
-                    
+        try:
+            # comment:
+            image_path_transparent = image_path.replace(".jpg", ".transparent.jpg")
+            if image_path:
+                with open(image_path, 'rb') as i:
+                    with open(image_path_transparent, 'wb') as o:
+                        input = i.read()
+                        output = remove_img_background(input)
+                        o.write(output)
+                        
+                        # save byte to image file with fileStorage
+            return image_path_transparent
+            
+        except Exception as e:
+            raise e
+        # end try
 
     def remove_image_background_bulk(self, folder_path: str | None = None):
 

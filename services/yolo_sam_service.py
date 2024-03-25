@@ -5,7 +5,7 @@ from ultralytics.models.fastsam import FastSAMPrompt
 
 class YoloSamMediaService(YoloMediaService):
 
-    def __init__(self, model: str = 'sam_l.pt'):
+    def __init__(self, model: str = 'models/sam_l.pt'):
         self.model = SAM(model)
         
     
