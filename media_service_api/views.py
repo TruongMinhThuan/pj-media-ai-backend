@@ -49,6 +49,7 @@ def generate_image_mask(request):
 @swagger_auto_schema(
     request_body=serializers.RemoveBackgroundRequestSerializer,
     method='post',
+    responses={200: serializers.RemoveBackgroundResponseSerializer}
 )
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
@@ -57,28 +58,24 @@ def remove_image_background(request: Request, *args, **kwargs):
 
     request_serializer = serializers.RemoveBackgroundRequestSerializer(
         data=request.data)
+    
     if request_serializer.is_valid():
-        print("request_serializer.data", request_serializer.validated_data)
         image_file = request_serializer.validated_data['image_file']
 
         img_service = ImageServices()
         file_path = img_service.fs.save('upload_images/image.jpg', image_file)
-        print("savefile_path", f'{img_service.fs.location}/{file_path}')
 
-        processed_image = img_service.remove_image_background(
-            f'{img_service.fs.location}/{file_path}')
+        processed_image = img_service.remove_image_background(f'{file_path}')
 
-        # img_service.fs.save('upload_images/image.jpg', img)
-        # save image_file
-        print("image_file", image_file)
+        response_serializer = serializers.RemoveBackgroundResponseSerializer(data={
+            'input_image_url': img_service.build_url(request, file_path),
+            'processed_image_url': img_service.build_url(request, processed_image)
+        })
+        
+        if response_serializer.is_valid():
+            return Response({"message": "Saved Image", "data": response_serializer.data})
+        else:
+            return Response({"message": "Saved Image Failed"})
 
-        return Response({"message": "Saved Image", "image_path": processed_image})
-
-    # img_service = YoloMediaService()
-
-    # res = img_service.detect_objects_from_url(
-    #     'https://i.pinimg.com/564x/24/5b/ea/245beae2b5ecc7c84bde15f5a2a9c6c5.jpg')
-
-    # img_service.save_mask_objects(res[0].masks.data)
 
     return Response({"message": "Saved Image Failed"})

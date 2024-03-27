@@ -93,17 +93,18 @@ class ImageServices(BaseService):
 
         try:
             # comment:
-            image_path_transparent = image_path.replace(".jpg", ".transparent.jpg")
+            image_path_transparent = image_path.replace(
+                ".jpg", ".transparent.jpg")
             if image_path:
-                with open(image_path, 'rb') as i:
-                    with open(image_path_transparent, 'wb') as o:
+                with open(f'{self.fs.location}/{image_path}', 'rb') as i:
+                    with open(f'{self.fs.location}/{image_path_transparent}', 'wb') as o:
                         input = i.read()
                         output = remove_img_background(input)
                         o.write(output)
-                        
+
                         # save byte to image file with fileStorage
             return image_path_transparent
-            
+
         except Exception as e:
             raise e
         # end try

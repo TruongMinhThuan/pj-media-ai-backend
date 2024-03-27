@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_swagger.views import get_swagger_view
 from django.conf.urls.static import static
-from django.conf import settings
+from mediaAI import settings
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -32,7 +32,7 @@ schema_view = get_schema_view(
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
-        
+
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -50,4 +50,7 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('sd-api/', include('stable_diffusion.urls')),
     path('media-api/', include('media_service_api.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
