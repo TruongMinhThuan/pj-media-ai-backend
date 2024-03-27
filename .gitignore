@@ -91,3 +91,7 @@ db.sqlite3
 models/*.pt
 
 medias/*
+
+staticfiles/*
+staticfiles/
+static
