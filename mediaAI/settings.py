@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()  # loads the configs from .env
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t60br)hcoi2c+=h9=4wv$4+r*oq)_4(3)@l11t02=8n$bf4@t='
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -44,12 +47,14 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'drf_spectacular',
     'drf_yasg',
-    'media_service_api'
+    'media_service_api',
+    'whitenoise'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,6 +63,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = 'mediaAI.urls'
 
@@ -182,5 +189,14 @@ LOGGING = {
 }
 
 
-MEDIA_ROOT = BASE_DIR / 'medias'
+# MEDIA_ROOT = BASE_DIR / 'medias'
+# MEDIA_URL = '/medias/'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
+MEDIA_ROOT = '/home/thuan/localhost:8000/medias'
 MEDIA_URL = '/medias/'

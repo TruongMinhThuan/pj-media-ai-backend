@@ -20,6 +20,7 @@ flatbuffers==24.3.7
 fonttools==4.50.0
 fsspec==2024.3.1
 ftfy==6.2.0
+gunicorn==21.2.0
 humanfriendly==10.0
 idna==3.6
 imageio==2.34.0
@@ -75,6 +76,7 @@ pydantic_core==2.16.3
 PyMatting==1.1.12
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 pytz==2024.1
 PyYAML==6.0.1
 referencing==0.31.1
@@ -103,3 +105,4 @@ uritemplate==4.1.1
 urllib3==2.2.1
 wcwidth==0.2.13
 Werkzeug==3.0.1
+whitenoise==6.6.0
