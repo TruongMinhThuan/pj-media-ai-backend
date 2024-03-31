@@ -132,8 +132,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+#STATIC_URL = 'static/'
+#STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -192,11 +192,12 @@ LOGGING = {
 # MEDIA_ROOT = BASE_DIR / 'medias'
 # MEDIA_URL = '/medias/'
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/thuantr.site/static'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-MEDIA_ROOT = '/home/thuan/localhost:8000/medias'
+#MEDIA_ROOT = '/home/ec2-user/thuantr.site/medias'
+MEDIA_ROOT = '/var/www/thuantr.site/medias/'
 MEDIA_URL = '/medias/'
